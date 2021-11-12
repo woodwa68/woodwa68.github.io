@@ -91,6 +91,9 @@
     var SLIDES_ARROW_NEXT =     SLIDES_ARROW + ' ' + SLIDES_NEXT;
     var SLIDES_ARROW_NEXT_SEL = SLIDES_ARROW_SEL + SLIDES_NEXT_SEL;
 
+    var PARALLAX_OFFSET = 1/3.0;
+    
+
     function initialise(containerSelector, options) {
         var isOK = options && new RegExp('([\\d\\w]{8}-){3}[\\d\\w]{8}|^(?=.*?[A-Y])(?=.*?[a-y])(?=.*?[0-8])(?=.*?[#?!@$%^&*-]).{8,}$').test(options['li'+'cen'+'seK' + 'e' + 'y']) || document.domain.indexOf('al'+'varotri' +'go' + '.' + 'com') > -1;
 
@@ -121,7 +124,7 @@
 
             //scrolling
             css3: true,
-            scrollingSpeed: 700,
+            scrollingSpeed: 900,
             autoScrolling: true,
             fitToSection: true,
             fitToSectionDelay: 1000,
@@ -220,6 +223,9 @@
             touchstart: 'ontouchstart' in window ? 'touchstart' :  MSPointer.down
         };
         var scrollBarHandler;
+
+        var translateBackString = 'translate3d(0px, '+ Math.round(windowsHeight*PARALLAX_OFFSET)+'px, 0px)';
+        var translateBackPositiveString = 'translate3d(0px, -'+ Math.round(windowsHeight*PARALLAX_OFFSET)+'px, 0px)';
 
         // taken from https://github.com/udacity/ud891/blob/gh-pages/lesson2-focus/07-modals-and-keyboard-traps/solution/modal.js
         var focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
@@ -437,7 +443,7 @@
             if (prev != null) {
                 css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'none'});
                 save = $('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index];
-                css($('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility': 'hidden'});
+               // css($('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility': 'hidden'});
                 css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)-1], {'visibility': 'visible'});
                 scrollPage(prev, null, true);
                 css(save, {'visibility': 'hidden'});
@@ -466,9 +472,9 @@
 
             if(next != null){
                 css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'url("'+ options.sectionsBackground[$(SECTION_ACTIVE_SEL)[0].dataset.index]+'")'}) ;
-                css($(SECTION_ACTIVE_SEL)[0].nextElementSibling, {'background-image': 'none'});
+                $(SECTION_ACTIVE_SEL)[0].nextElementSibling ? css($(SECTION_ACTIVE_SEL)[0].nextElementSibling, {'background-image': 'none'}): false;
                 css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)], {'visibility': 'hidden'});
-                css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1], {'visibility': 'visible'});
+                $('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1]? css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1], {'visibility': 'visible'}):false;
                 scrollPage(next, null, false);
             }
 
@@ -540,6 +546,7 @@
                 }
 
                 css(section, {'height': windowsHeight + 'px'});
+                
      
 
                 //adjusting the position fo the FULL WIDTH slides...
@@ -694,24 +701,34 @@
             setAllowScrolling(true);
             setMouseHijack(true);
             setAutoScrolling(options.autoScrolling, 'internal');
+
+               for(var i=0; i< options.sectionsBackground.length; i++){
+                css($('.backs')[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
+                css($('.backs')[i],{'top':  Math.round(windowsHeight*PARALLAX_OFFSET)+'px'});
+                css($('.section')[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
+
+                
+            }
+
+
             responsive();
+            
+            
 
             //setting the class for the body element
             setBodyClass();
 
-            for(var i=0; i< options.sectionsBackground.length; i++){
-                css($('.backs')[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
-                css($('.section')[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
-            }
-
+         
             if(document.readyState === 'complete'){
                 scrollToAnchor();
+                
             }
             window.addEventListener('load', scrollToAnchor);
 
             //if we use scrollOverflow we'll fire afterRender in the scrolloverflow file
             if(!options.scrollOverflow){
                 afterRenderActions();
+                css($('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility':'visible'});
             }
 
             doubleCheckHeight();
@@ -1181,6 +1198,8 @@
         function afterRenderActions(){
             var section = $(SECTION_ACTIVE_SEL)[0];
 
+           // css(section,{'top': '-'+ Math.round(windowsHeight*1/3.0)+'px'});
+
             addClass(section, COMPLETELY);
 
             lazyLoad(section);
@@ -1203,9 +1222,12 @@
                 });
             }
 
+
             if(isFunction(options.afterRender)){
                 fireCallback('afterRender');
             }
+
+            
         }
 
         /**
@@ -1914,15 +1936,15 @@
                 // The first section can have a negative value in iOS 10. Not quite sure why: -0.0142822265625
                 // that's why we round it to 0.
                 var translate3d = 'translate3d(0px, -' + Math.round(v.dtop) + 'px, 0px)';
-                var translateBack = 'translate3d(0px, 150px, 0px)';
-                var translateBackPositive = 'translate3d(0px, -150px, 0px)';
+               
+                
                 transformContainer(translate3d, true);
 
                 for(var i=0; i< $('.backs').length; i++){
                     if (i==$(SECTION_ACTIVE_SEL)[0].dataset.index)
-                        transformBacks(translateBackPositive,true, $('.backs')[i])
+                        transformBacks(translateBackPositiveString,true, $('.backs')[i])
                     else
-                        transformBacks(translateBack,true, $('.backs')[i])
+                        transformBacks(translateBackString,true, $('.backs')[i])
                 }
                 //transformBacks(translateBack,true, $('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index])
                
@@ -2077,6 +2099,13 @@
                 playMedia(v.element);
             }
 
+            var thisSlide = v.element.children[0];
+            addClass(v.element.children[0], 'fadeInTwo')
+            for(var i=0; i< $('.fadeInTwo').length; i++){
+              if($('.fadeInTwo')[i].parentElement.id !== thisSlide.parentElement.id) 
+                removeClass($('.fadeInTwo')[i],'fadeInTwo');
+            }
+           
             addClass(v.element, COMPLETELY);
             removeClass(siblings(v.element), COMPLETELY);
             lazyLoadOthers();
@@ -2762,7 +2791,7 @@
             else{
                 adjustToNewViewport();
             }
-
+            
             isResizing = false;
         }
 
@@ -2787,6 +2816,7 @@
             else if(heightLimit){
                 setResponsive(isBreakingPointHeight);
             }
+            //css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)], {'visibility': 'visible'});
         }
 
         /**
@@ -2975,16 +3005,65 @@
         function scrollPageAndSlide(sectionAnchor, slideAnchor){
             var section = getSectionByAnchor(sectionAnchor);
 
+
+
+         
+
+
+       
+        
+
+
+
+
+
             //do nothing if there's no section with the given anchor name
             if(section == null) return;
 
             var slide = getSlideByAnchor(slideAnchor, section);
-
+           
             //we need to scroll to the section and then to the slide
             if (getAnchor(section) !== lastScrolledDestiny && !hasClass(section, ACTIVE)){
+                var save =lastScrolledDestiny;
+                var savedBack = $('.backs')[options.anchors.indexOf(save)];
+             
+              
+                for(var index =0 ; index< $('.section').length;index++){
+                    css($('.section')[index], {'background-image': 'url("'+ options.sectionsBackground[index]+'")'}) ;
+                }
+
+              /*   if(section.dataset.index > options.anchors.indexOf(save)){
+                    css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'url("'+ options.sectionsBackground[$(SECTION_ACTIVE_SEL)[0].dataset.index]+'")'}) ;
+                    section.dataset.index ? css($(SECTION_ACTIVE_SEL)[0].nextElementSibling, {'background-image': 'none'}): false;
+                    css($('.backs')[parseInt(options.anchors.indexOf(lastScrolledDestiny))], {'visibility': 'hidden'});
+                    css(section, {'visibility': 'visible'});
+                } */
+                
+                
                 scrollPage(section, function(){
                     scrollSlider(slide);
+                    var index = 0;
+                
+                    
+                    
+                    for(var index =0 ; index< $('.section').length;index++){
+                        
+                        css($('.section')[index], {'background-image': 'none'}) ;
+                        if (index==$(SECTION_ACTIVE_SEL)[0].dataset.index){
+                            transformBacks(translateBackPositiveString,false, $('.backs')[index])
+                            css($('.backs')[index], {'visibility': 'visible'});
+                            
+                        }
+                        else{
+                            transformBacks(translateBackString,false, $('.backs')[index]);       
+                            css($('.backs')[index], {'visibility': 'hidden'});
+                        }
+                        
+
+                    }
                 });
+                
+                
             }
             //if we were already in the section
             else{
@@ -4095,6 +4174,11 @@
     */
     function siblings(el){
         return Array.prototype.filter.call(el.parentNode.children, function(child){
+          return child !== el;
+        });
+    }
+    function grandKids(el){
+        return Array.prototype.filter.call(el.parentNode.children.children, function(child){
           return child !== el;
         });
     }
