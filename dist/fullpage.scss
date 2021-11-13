@@ -19,20 +19,108 @@
   }
  */
 
+ $baseline: 1.0rem;
+
+ $minScreen: 20rem;
+ $maxScreen: 50rem;
+ $minFont: .8rem;
+ $maxFont: 1.75rem;
+ 
+ $h1: 2rem;
+ $h2: 1.5rem;
+ $h3: 1.25rem;
+ $h4: 1rem;
+ $h5: .875rem;
+ 
+ 
+ @mixin fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+     & {
+         @each $property in $properties {
+             #{$property}: $min-value;
+         }
+ 
+         @media screen and (min-width: $min-vw) {
+             @each $property in $properties {
+                 #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+             }
+         }
+ 
+         @media screen and (min-width: $max-vw) {
+             @each $property in $properties {
+                 #{$property}: $max-value;
+             }
+         }
+     }
+ }
+ 
+ @function strip-unit($value) {
+     @return $value / ($value * 0 + 1);
+ }
+ 
+ *{
+     box-sizing: border-box;
+ }
+ 
+ html {
+     box-sizing: border-box;
+     height: 100%;
+     font-smoothing: antialiased;
+     text-rendering: optimizeLegibility;
+     @include fluid-type(font-size, $minScreen, $maxScreen, $minFont, $maxFont);
+ }
+ 
+ body {
+     line-height: $baseline;
+     padding: $baseline 0;
+     margin: 0 auto;  
 
 
-@media (min-width: 0px) {
-  p { font-size: 1rem !important; }
-}
-
-@media (min-width: 400px) {
-  p { font-size: 3.0rem !important; }
-}
-
-@media (min-width: 1001px){
-    p { font-size: 6.0rem !important; }
-}
-
+     width: 100%;
+ }
+ 
+ p{	
+     line-height: $baseline;
+     margin-bottom: $baseline;
+ }
+ 
+ h1,
+ h2,
+ h3,
+ h4,
+ h5{
+     font-weight: 700;
+     margin-bottom: $baseline;
+ }
+ 
+ h1 {
+     font-size: $h1;
+     line-height: $h1;
+     margin-top: calc((#{$baseline} - #{$h1}) + #{$baseline});
+ }
+ 
+ h2 {
+     font-size: $h2;
+     line-height: $h2;
+     margin-top: calc((#{$baseline} - #{$h2}) + #{$baseline}*2);
+ }
+ 
+ h3 {
+     font-size: $h3;
+     line-height: $h3;
+     margin-top: calc((#{$baseline} - #{$h3}) + #{$baseline}*2);
+ }
+ 
+ h4 {
+     font-size: $h4;
+     line-height: $h4;
+     margin-top: calc((#{$baseline} - #{$h4}) + #{$baseline}*2);
+ }
+ 
+ h5 {
+     font-size: $h5;
+     line-height: $h5;
+     margin-top: calc((#{$baseline} - #{$h5}) + #{$baseline}*2);
+ }
 html.fp-enabled,
 .fp-enabled body {
     margin: 0;
@@ -95,14 +183,14 @@ html.fp-enabled,
     display: flex;
     width: 100%;
     height: 100%;
-    justify-content: space-evenly;
+    
     align-items: center;
 }
 .roceFlex{
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-evenly;
+    
 }
 @media (orientation: portrait) {
     .flexSlide{
@@ -123,18 +211,22 @@ html.fp-enabled,
 .fcc{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+ 
     justify-content: space-evenly;
     align-items: center;
 }
 .fcr{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 100%;
+  
     justify-content: space-evenly;
     align-items: center;
+
+}
+.pWrapper{
+  margin: 2% 0;
+  background-color: #ad6ad6d9;
+  border: 10px solid rgba(0, 0, 0, 0);
 
 }
 @media (orientation: landscape) {
@@ -408,13 +500,7 @@ caption,th {
     text-align: left;
 
 }
-h1,h2,h3,h4,h5,h6 {
-    font-weight: normal;
-    font-size: 100%;
-    margin:0;
-    padding:0;
-    color:#444;
-}
+
 q:before,q:after {
     content:'';
 }
@@ -434,18 +520,12 @@ body{
  
 
 }
-p{
-    font-size: calc(1rem + 1.0vw); 
-    
-}
+
 .wrap{
 	margin-left: auto;
 	margin-right: auto;
 	width: 960px;
 	position: relative;
-}
-h1{
-	font-size: 6em;
 }
 
 .intro p{
@@ -513,9 +593,7 @@ h1{
 #menu li.active a:hover{
 	color: #000;
 }
-.fp-tableCell{
-    padding-top: inherit;
-}
+
 #menu li:hover{
 	/* background: rgba(255,255,255, 0.8); */
 }
@@ -531,13 +609,16 @@ h1{
 /* 	color: #fff; */
 	color: #000;
 }
+#menuWrapper2,
 #menuWrapper{
-    position: fixed;
     display: flex;
     flex-direction: column;
     z-index: 70;
     height: 9%;
     width: 100%;
+}
+#menuWrapper{
+  position: fixed;
 }
 #menuBorder{
     background:  linear-gradient(

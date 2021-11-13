@@ -101,7 +101,9 @@
         var $htmlBody = $('html, body');
         var $html = $('html')[0];
         var $body = $('body')[0];
-
+        var $backs = $('.backs')
+        var $sections = $('.section')
+        var $menu = $('#menuWrapper')[0]
         //only once my friend!
         if(hasClass($html, ENABLED)){ displayWarnings(); return; }
 
@@ -442,9 +444,9 @@
             var save
             if (prev != null) {
                 css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'none'});
-                save = $('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index];
-               // css($('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility': 'hidden'});
-                css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)-1], {'visibility': 'visible'});
+                save = $backs[$(SECTION_ACTIVE_SEL)[0].dataset.index];
+               // css($backs[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility': 'hidden'});
+                css($backs[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)-1], {'visibility': 'visible'});
                 scrollPage(prev, null, true);
                 css(save, {'visibility': 'hidden'});
                 css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'url("'+ options.sectionsBackground[$(SECTION_ACTIVE_SEL)[0].dataset.index]+'")'}) ;
@@ -473,8 +475,8 @@
             if(next != null){
                 css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'url("'+ options.sectionsBackground[$(SECTION_ACTIVE_SEL)[0].dataset.index]+'")'}) ;
                 $(SECTION_ACTIVE_SEL)[0].nextElementSibling ? css($(SECTION_ACTIVE_SEL)[0].nextElementSibling, {'background-image': 'none'}): false;
-                css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)], {'visibility': 'hidden'});
-                $('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1]? css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1], {'visibility': 'visible'}):false;
+                css($backs[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)], {'visibility': 'hidden'});
+                $backs[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1]? css($backs[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)+1], {'visibility': 'visible'}):false;
                 scrollPage(next, null, false);
             }
 
@@ -546,7 +548,7 @@
                 }
 
                 css(section, {'height': windowsHeight + 'px'});
-                
+                css(section, {'padding-top': $menu.clientHeight+'px' });
      
 
                 //adjusting the position fo the FULL WIDTH slides...
@@ -703,9 +705,9 @@
             setAutoScrolling(options.autoScrolling, 'internal');
 
                for(var i=0; i< options.sectionsBackground.length; i++){
-                css($('.backs')[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
-                css($('.backs')[i],{'top':  Math.round(windowsHeight*PARALLAX_OFFSET)+'px'});
-                css($('.section')[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
+                css($backs[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
+                css($backs[i],{'top':  Math.round(windowsHeight*PARALLAX_OFFSET)+'px'});
+                css($sections[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
 
                 
             }
@@ -728,7 +730,7 @@
             //if we use scrollOverflow we'll fire afterRender in the scrolloverflow file
             if(!options.scrollOverflow){
                 afterRenderActions();
-                css($('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility':'visible'});
+                css($backs[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility':'visible'});
             }
 
             doubleCheckHeight();
@@ -1047,9 +1049,9 @@
 
             css(section, {'height': windowsHeight + 'px'});
 
-            if(options.paddingTop){
-                css(section, {'padding-top': options.paddingTop});
-            }
+            
+            css(section, {'padding-top': $menu.clientHeight+'px' });
+            
 
             if(options.paddingBottom){
                 css(section, {'padding-bottom': options.paddingBottom});
@@ -1940,13 +1942,13 @@
                 
                 transformContainer(translate3d, true);
 
-                for(var i=0; i< $('.backs').length; i++){
+                for(var i=0; i< $backs.length; i++){
                     if (i==$(SECTION_ACTIVE_SEL)[0].dataset.index)
-                        transformBacks(translateBackPositiveString,true, $('.backs')[i])
+                        transformBacks(translateBackPositiveString,true, $backs[i])
                     else
-                        transformBacks(translateBackString,true, $('.backs')[i])
+                        transformBacks(translateBackString,true, $backs[i])
                 }
-                //transformBacks(translateBack,true, $('.backs')[$(SECTION_ACTIVE_SEL)[0].dataset.index])
+                //transformBacks(translateBack,true, $backs[$(SECTION_ACTIVE_SEL)[0].dataset.index])
                
                 
 
@@ -2816,7 +2818,7 @@
             else if(heightLimit){
                 setResponsive(isBreakingPointHeight);
             }
-            //css($('.backs')[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)], {'visibility': 'visible'});
+            //css($backs[parseInt($(SECTION_ACTIVE_SEL)[0].dataset.index)], {'visibility': 'visible'});
         }
 
         /**
@@ -3025,17 +3027,17 @@
             //we need to scroll to the section and then to the slide
             if (getAnchor(section) !== lastScrolledDestiny && !hasClass(section, ACTIVE)){
                 var save =lastScrolledDestiny;
-                var savedBack = $('.backs')[options.anchors.indexOf(save)];
+                var savedBack = $backs[options.anchors.indexOf(save)];
              
               
-                for(var index =0 ; index< $('.section').length;index++){
-                    css($('.section')[index], {'background-image': 'url("'+ options.sectionsBackground[index]+'")'}) ;
+                for(var index =0 ; index< $sections.length;index++){
+                    css($sections[index], {'background-image': 'url("'+ options.sectionsBackground[index]+'")'}) ;
                 }
 
               /*   if(section.dataset.index > options.anchors.indexOf(save)){
                     css($(SECTION_ACTIVE_SEL)[0], {'background-image': 'url("'+ options.sectionsBackground[$(SECTION_ACTIVE_SEL)[0].dataset.index]+'")'}) ;
                     section.dataset.index ? css($(SECTION_ACTIVE_SEL)[0].nextElementSibling, {'background-image': 'none'}): false;
-                    css($('.backs')[parseInt(options.anchors.indexOf(lastScrolledDestiny))], {'visibility': 'hidden'});
+                    css($backs[parseInt(options.anchors.indexOf(lastScrolledDestiny))], {'visibility': 'hidden'});
                     css(section, {'visibility': 'visible'});
                 } */
                 
@@ -3046,18 +3048,19 @@
                 
                     
                     
-                    for(var index =0 ; index< $('.section').length;index++){
+                    for(var index =0 ; index< $sections.length;index++){
                         
-                        css($('.section')[index], {'background-image': 'none'}) ;
+                        
                         if (index==$(SECTION_ACTIVE_SEL)[0].dataset.index){
-                            transformBacks(translateBackPositiveString,false, $('.backs')[index])
-                            css($('.backs')[index], {'visibility': 'visible'});
+                            transformBacks(translateBackPositiveString,false, $backs[index])
+                            css($backs[index], {'visibility': 'visible'});
                             
                         }
                         else{
-                            transformBacks(translateBackString,false, $('.backs')[index]);       
-                            css($('.backs')[index], {'visibility': 'hidden'});
+                            transformBacks(translateBackString,false, $backs[index]);       
+                            css($backs[index], {'visibility': 'hidden'});
                         }
+                        css($sections[index], {'background-image': 'none'}) ;
                         
 
                     }

@@ -8,10 +8,12 @@
 	<meta name="description" content="ROCE LLC" />
 	<meta name="keywords"  content="ROCE LLC" />
 	<meta name="Resource-type" content="Document" />
-	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500&display=swap" rel="stylesheet"> 
 
-	<link rel="stylesheet" type="text/css" href="./dist/fullpage.css" />
-	<link rel="stylesheet" type="text/css" href="./examples/examples.css" />
+	<link rel="stylesheet" type="text/css" href="./dist/destination.css" />
+
 
 	<!--[if IE]>
 		<script type="text/javascript">
@@ -129,10 +131,10 @@
 	<div id="menu">
 		<li id='menuLogo' data-menuanchor="logoM" ></li>
 		
-		<li data-menuanchor="1"><a href="#firstPage" data-index=0>First</a></li>
-		<li data-menuanchor="2"><a href="#secondPage" data-index=1>Second </a></li>
-		<li data-menuanchor="3"><a href="#3rdPage" data-index=2>Third </a></li>
-		<li data-menuanchor="4"><a href="#4thpage" data-index=3>Fourth </a></li>
+		<li data-menuanchor="1"><a href="#firstPage" data-index=0></a></li>
+		<li data-menuanchor="2"><a href="#secondPage" data-index=1> </a></li>
+		<li data-menuanchor="3"><a href="#3rdPage" data-index=2> </a></li>
+		<li data-menuanchor="4"><a href="#4thpage" data-index=3> </a></li>
 	</div>
 	<div id='menuBorder'></div>
 </div>
@@ -160,14 +162,14 @@
 			<div class ="flexCell" ><img src="./examples/imgs/highResLogo.png" style="width: inherit;" /></div>
 			<div class ="flexCell" >
 				<div class = "roceFlex">
-					<label id="roceTitle">Restaurant</label>
-					<label id="roceTitle">Operations</label>
-					<label id="roceTitle">Consulting</label>
-					<label id="roceTitle">Experts</label>
+					<h1>Restaurant</h1>
+					<h2>Operations</h2>
+					<h3>Consulting</h3>
+					<h4>Experts</h4>
 					<hr style="width: 90%;"/>
-					<label id="roceSlogan">Minimize Expenses</label>
-					<label id="roceSlogan">Maximize Efficiency</label>
-					<label id="roceSlogan">Maintain Consistency</label>
+					<h4>Minimize Expenses</h4>
+					<h4>Maximize Efficiency</h4>
+					<h4>Maintain Consistency</h4>
 				</div>
 			</div>
 		</div>
@@ -175,30 +177,56 @@
 		<div class="slide" id="slide1.3"><h1>Slide 1.3</h1></div> -->
 	</div>
 	<div class="section" id="section1">
-		<div class="flexSlide" id ="slide2.1" >
-			<div class ="flexCell" style="height: 75%;padding-top: inherit;background: rgb(173 106 214 / 85%);" >
-				<div class = "roceFlex">
-					<label id="roceTitle">Let's</label>
-					<label id="roceTitle">Fuck</label>
-					<hr style="width: 90%;"/>
-					<label id="roceSlogan">When?</label>
-					<label id="roceSlogan">Now.</label>
-				</div>
-			</div>
-			<div class ="flexCell" >
-				<div class = "roceFlex">
+	
+		<div class="fcc" id ="slide2.1" style="height:inherit" >
+		
+			
+				
+					<h1>Define & Tailor Your Restaurant's Needs</h1>
+				
+		
+				<div class ="fcr" >
 
+					<div class ="fcc" style="width:50%;padding: 0 5%">
+
+						<div class ="fcc" >
+							<h3 >Restaurant Concept</h3>
+							<p class='pWrapper'>Develop a defining theme for the restaurant, understanding the target market and determining: price point, casual/formal, what type of food, how you vary from competition around you.</p>
+						</div>
+				<!-- 		<img src="./examples/imgs/bg3.jpg" style="height: 15%;"></img> -->
+						<div class ="fcc">
+							<h3 >Design and Layout</h3>
+							<p class='pWrapper' >There are many fundamental elements to designing a restaurant and setting your ideal ambiance, including: lighting, ventilation, noise control, apparel of staff, silverware, glassware, flatware, kitchen concept, capacities, etc. </p>
+						</div>
+						
+					</div>
+					<div class ="fcc" 	style="width:50%;padding: 0 5%;"> 
+
+						<div class ="fcc" >
+	
+							<!-- <img src="./examples/imgs/bg4.jpg" style="height: 15%;"></img> -->
+							<div class ="fcc">
+								<h3 >Menu Design</h3>
+								<p class="pWrapper">Complete menu design from recipe books, lunch and dinner menus, seasonal cocktail lists, banquet menus and buffets. Developing a solid food menu is the core of any successful restaurant. People may come back after back service, but most do not return after poor food! This also includes the physical design of menus to match the ambiance of the restaurant.</p>
+							</div>
+							<!-- <img src="./examples/imgs/bg1.jpg" style="height: 15%;"></img> -->
+							
+						</div>
+						</div>
 				</div>
-			</div>
-	</div>
+			
+		</div>
+	
 	
 	</div>
 	<div class="section" id="section2">
-		<div class="flexSlide" id ="slide1.1">
+		<div class="flexSlide" id ="slide1.1" style="height:inherit" >
+	
 			<div class ="flexCell" >section 3</div>
 		</div>
 	</div>
 	<div class="section" id="section3">
+	
 		<div class="flexSlide" id ="slide1.1">
 			<div class ="flexCell" >section 4</div>
 		</div>
@@ -265,7 +293,7 @@ var iscrollOptions = {
 			menu: '#menu', 
 			navigation:true,
 			continuousVertical:false,
-			paddingTop: '20px',
+
 			sectionsBackground:['./examples/imgs/bg1.jpg', './examples/imgs/bg3.jpg', './examples/imgs/bg4.jpg', './examples/imgs/bg4grid.jpg'],
 			});
 	}
