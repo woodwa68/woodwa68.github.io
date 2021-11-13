@@ -91,7 +91,7 @@
     var SLIDES_ARROW_NEXT =     SLIDES_ARROW + ' ' + SLIDES_NEXT;
     var SLIDES_ARROW_NEXT_SEL = SLIDES_ARROW_SEL + SLIDES_NEXT_SEL;
 
-    var PARALLAX_OFFSET = 1/3.0;
+    var PARALLAX_OFFSET = 33/100;
     
 
     function initialise(containerSelector, options) {

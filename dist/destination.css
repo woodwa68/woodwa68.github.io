@@ -31,12 +31,12 @@ html {
 }
 @media screen and (min-width: 20rem) {
   html {
-    font-size: calc(0.8rem + 0.95 * ((100vw - 20rem) / 30));
+    font-size: calc(0.8rem + 1.2 * ((100vw - 20rem) / 30));
   }
 }
 @media screen and (min-width: 50rem) {
   html {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 
