@@ -226,8 +226,8 @@
         };
         var scrollBarHandler;
 
-        var translateBackString = 'translate3d(0px, '+ Math.round(windowsHeight*PARALLAX_OFFSET)+'px, 0px)';
-        var translateBackPositiveString = 'translate3d(0px, -'+ Math.round(windowsHeight*PARALLAX_OFFSET)+'px, 0px)';
+        var translateBackString = 'translate3d(0px, '+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight)+'px, 0px)';
+        var translateBackPositiveString = 'translate3d(0px, -'+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight)+'px, 0px)';
 
         // taken from https://github.com/udacity/ud891/blob/gh-pages/lesson2-focus/07-modals-and-keyboard-traps/solution/modal.js
         var focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
@@ -548,7 +548,7 @@
                 }
 
                 css(section, {'height': windowsHeight + 'px'});
-                css(section, {'padding-top': $menu.clientHeight+'px' });
+              
      
 
                 //adjusting the position fo the FULL WIDTH slides...
@@ -706,7 +706,8 @@
 
                for(var i=0; i< options.sectionsBackground.length; i++){
                 css($backs[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
-                css($backs[i],{'top':  Math.round(windowsHeight*PARALLAX_OFFSET)+'px'});
+                css($backs[i],{'top':  Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight)+'px'});
+                css($backs[i],{'height':  Math.round(windowsHeight-$menu.clientHeight)+'px'});
                 css($sections[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
 
                 
@@ -932,11 +933,14 @@
         function prepareDom(){
             css(container, {
                 'height': '100%',
-                'position': 'relative'
+                'position': 'relative',
+                
+                /* 'padding-top': $menu.clientHeight +'px' */
             });
 
             //adding a class to recognize the container internally in the code
             addClass(container, WRAPPER);
+            
             addClass($html, ENABLED);
 
             //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
@@ -1047,10 +1051,10 @@
             }
             startingSection = $(SECTION_ACTIVE_SEL)[0];
 
-            css(section, {'height': windowsHeight + 'px'});
+            css(section, {'height': windowsHeight -$menu.clientHeight + 'px'});
 
             
-            css(section, {'padding-top': $menu.clientHeight+'px' });
+
             
 
             if(options.paddingBottom){
@@ -1202,7 +1206,12 @@
 
            // css(section,{'top': '-'+ Math.round(windowsHeight*1/3.0)+'px'});
 
-            addClass(section, COMPLETELY);
+            
+            //addClass(section, COMPLETELY);
+     
+            //    / setTimeout(addClass(child, COMPLETELY),1000)
+               
+                
 
             lazyLoad(section);
             lazyLoadOthers();
@@ -1712,7 +1721,7 @@
             //top of the desination will be at the top of the viewport
             var position = elementTop;
             var isScrollingDown =  elementTop > previousDestTop;
-            var sectionBottom = position - windowsHeight + elementHeight;
+            var sectionBottom = position - windowsHeight + elementHeight + $menu.clientHeight;
             var bigSectionsDestination = options.bigSectionsDestination;
 
             //is the destination element bigger than the viewport?
@@ -2101,14 +2110,22 @@
                 playMedia(v.element);
             }
 
-            var thisSlide = v.element.children[0];
+      /*       var thisSlide = v.element.children[0];
             addClass(v.element.children[0], 'fadeInTwo')
             for(var i=0; i< $('.fadeInTwo').length; i++){
               if($('.fadeInTwo')[i].parentElement.id !== thisSlide.parentElement.id) 
                 removeClass($('.fadeInTwo')[i],'fadeInTwo');
+            } */
+            var section = v.element;
+           /*  for(var i=0; i< section.children[0].children[1].children.length; i++){
+                var child = section.children[0].children[0].children[i];
+                setTimeout(addClass(child, COMPLETELY),1000)
             }
+
+ */     
+            addClassRecursivelyToChildren(section.children[0], COMPLETELY)
            
-            addClass(v.element, COMPLETELY);
+           // addClass(v.element, COMPLETELY);
             removeClass(siblings(v.element), COMPLETELY);
             lazyLoadOthers();
 
@@ -2919,7 +2936,7 @@
         }
 
         function getTableHeight(element){
-            var sectionHeight = windowsHeight;
+            var sectionHeight = windowsHeight -$menu.clientHeight
 
             if(options.paddingTop || options.paddingBottom){
                 var section = element;
@@ -4007,6 +4024,36 @@
             }
         }
         return el;
+    }
+    function timeout(ms, item){
+        addClass(item, COMPLETELY)
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    async function addClassRecursivelyToChildren(el, className) {
+        el = getList(el);
+
+        for(var i = 0; i<el.length; i++){
+            var item = el[i];
+            if(item.children.length ===0 ){
+               
+                if (item.classList){
+                    item.classList.add(COMPLETELY);
+                
+                }
+                else{
+                    item.className += ' ' + className;
+                }
+                return timeout(250, item);
+            }
+            else if(item.children.length !== 0){
+                for(var j = 0; j<item.children.length; j++){
+                  await addClassRecursivelyToChildren(item.children[j], COMPLETELY)
+                }
+                
+            }
+            
+        }
+       
     }
 
     /**
