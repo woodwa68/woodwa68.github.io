@@ -136,7 +136,7 @@ html.fp-enabled,
      font-family: 'Bodoni Moda', serif;
     font-weight: 400;
     font-size: 3.0vw;
-    
+    opacity: 0;
     font-variant: small-caps;
 
 }
@@ -630,8 +630,9 @@ body{
     display: flex;
     flex-direction: column;
     z-index: 70;
-    height: 9%;
+    height: 10%;
     width: 100%;
+    background-color: white;
 }
 #menuWrapper{
   position: fixed;
@@ -644,7 +645,7 @@ body{
       ) ;
       height: 13%;
 }
-#menuLogo{
+.menuLogo{
     background-image: url(../examples/imgs/highResLogo.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -737,6 +738,7 @@ body{
 	display: block;
 	margin: 0 22px 0 0;
 	color: #333;
+    
 }
 #infoMenu li a:hover{
 	text-decoration:underline;
@@ -840,3 +842,207 @@ body{
 #o{
     opacity: 0;
 }
+
+.mask {
+    fill: none;
+    stroke: #fff;
+}
+
+.mask {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+/* Animation the stroke-dashoffset to a zero length */
+@keyframes strokeOffset {
+    from {
+        stroke-dashoffset: 1;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+}
+
+path[mask]{
+    stroke: white;
+    fill: #ad6ad6;
+}
+$delay :.12s;
+@function getTime($i) {
+    
+    $result: $i*$delay;
+    @return $result;
+  }
+
+/* Apply the animation to each mask */
+#mask-mrr {
+    animation: strokeOffset $delay linear forwards getTime(0);
+}
+#mask-mre
+{
+    animation: strokeOffset $delay linear forwards getTime(1);
+}
+#mask-mrs
+{
+    animation: strokeOffset $delay linear forwards getTime(2);
+}
+#mask-mrt
+{
+    animation: strokeOffset $delay linear forwards getTime(3);
+}
+#mask-mra
+{
+    animation: strokeOffset $delay linear forwards getTime(4);
+}
+#mask-mru
+{
+    animation: strokeOffset $delay linear forwards getTime(5);
+}
+#mask-mrr2
+{
+    animation: strokeOffset $delay linear forwards getTime(6);
+}
+#mask-mra2
+{
+    animation: strokeOffset $delay linear forwards getTime(7);
+}
+#mask-mrn
+{
+    animation: strokeOffset $delay linear forwards getTime(8);
+}
+#mask-mrt2
+{
+    animation: strokeOffset $delay linear forwards getTime(9);
+}
+
+
+
+#mask-moo
+{
+    animation: strokeOffset $delay linear forwards getTime(10);
+}
+#mask-mop
+{
+    animation: strokeOffset $delay linear forwards getTime(11);
+}
+
+#mask-moe
+{
+    animation: strokeOffset $delay linear forwards getTime(12);
+}
+#mask-mor
+{
+    animation: strokeOffset $delay linear forwards getTime(13);
+}
+#mask-moa
+{
+    animation: strokeOffset $delay linear forwards getTime(14);
+}
+#mask-mot
+{
+    animation: strokeOffset $delay linear forwards getTime(15);
+}
+#mask-moi
+{
+    animation: strokeOffset $delay linear forwards getTime(16);
+}
+#mask-moo2
+{
+    animation: strokeOffset $delay linear forwards getTime(17);
+}
+#mask-mon
+{
+    animation: strokeOffset $delay linear forwards getTime(18);
+}
+#mask-mos
+{
+    animation: strokeOffset $delay linear forwards getTime(19);
+}
+
+
+
+
+
+
+
+
+#mask-mcc
+{
+    animation: strokeOffset $delay linear forwards getTime(20);
+}
+#mask-mco
+{
+    animation: strokeOffset $delay linear forwards getTime(21);
+}
+#mask-mcn
+{
+    animation: strokeOffset $delay linear forwards getTime(22);
+}
+#mask-mcs
+{
+    animation: strokeOffset $delay linear forwards getTime(23);
+}
+#mask-mcu
+{
+    animation: strokeOffset $delay linear forwards getTime(24);
+}
+#mask-mcl
+{
+    animation: strokeOffset $delay linear forwards getTime(25);
+}
+#mask-mct
+{
+    animation: strokeOffset $delay linear forwards getTime(26);
+}
+#mask-mci
+{
+    animation: strokeOffset $delay linear forwards getTime(27);
+}
+#mask-mcn2
+{
+    animation: strokeOffset $delay linear forwards getTime(28);
+}
+#mask-mcg
+{
+    animation: strokeOffset $delay linear forwards getTime(29);
+}
+
+
+#mask-mee
+{
+    animation: strokeOffset $delay linear forwards getTime(30);
+}
+#mask-mex
+{
+    animation: strokeOffset $delay linear forwards getTime(31);
+}
+
+#mask-mep
+{
+    animation: strokeOffset $delay linear forwards getTime(32);
+}
+
+#mask-mee2
+{
+    animation: strokeOffset $delay linear forwards getTime(33);
+}
+
+#mask-mer
+{
+    animation: strokeOffset $delay linear forwards getTime(34);
+}
+
+#mask-met
+{
+    animation: strokeOffset $delay linear forwards getTime(35);
+}
+
+#mask-mes
+{
+    animation: strokeOffset $delay linear forwards getTime(36);
+}
+
+
+
+
+

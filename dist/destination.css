@@ -104,6 +104,7 @@ html.fp-enabled,
   font-family: "Bodoni Moda", serif;
   font-weight: 400;
   font-size: 3vw;
+  opacity: 0;
   font-variant: small-caps;
 }
 
@@ -635,8 +636,9 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 70;
-  height: 9%;
+  height: 10%;
   width: 100%;
+  background-color: white;
 }
 
 #menuWrapper {
@@ -648,7 +650,7 @@ body {
   height: 13%;
 }
 
-#menuLogo {
+.menuLogo {
   background-image: url(../examples/imgs/highResLogo.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -854,6 +856,179 @@ body {
 }
 #o {
   opacity: 0;
+}
+
+.mask {
+  fill: none;
+  stroke: #fff;
+}
+
+.mask {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+/* Animation the stroke-dashoffset to a zero length */
+@keyframes strokeOffset {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+path[mask] {
+  stroke: white;
+  fill: #ad6ad6;
+}
+
+/* Apply the animation to each mask */
+#mask-mrr {
+  animation: strokeOffset 0.12s linear forwards 0s;
+}
+
+#mask-mre {
+  animation: strokeOffset 0.12s linear forwards 0.12s;
+}
+
+#mask-mrs {
+  animation: strokeOffset 0.12s linear forwards 0.24s;
+}
+
+#mask-mrt {
+  animation: strokeOffset 0.12s linear forwards 0.36s;
+}
+
+#mask-mra {
+  animation: strokeOffset 0.12s linear forwards 0.48s;
+}
+
+#mask-mru {
+  animation: strokeOffset 0.12s linear forwards 0.6s;
+}
+
+#mask-mrr2 {
+  animation: strokeOffset 0.12s linear forwards 0.72s;
+}
+
+#mask-mra2 {
+  animation: strokeOffset 0.12s linear forwards 0.84s;
+}
+
+#mask-mrn {
+  animation: strokeOffset 0.12s linear forwards 0.96s;
+}
+
+#mask-mrt2 {
+  animation: strokeOffset 0.12s linear forwards 1.08s;
+}
+
+#mask-moo {
+  animation: strokeOffset 0.12s linear forwards 1.2s;
+}
+
+#mask-mop {
+  animation: strokeOffset 0.12s linear forwards 1.32s;
+}
+
+#mask-moe {
+  animation: strokeOffset 0.12s linear forwards 1.44s;
+}
+
+#mask-mor {
+  animation: strokeOffset 0.12s linear forwards 1.56s;
+}
+
+#mask-moa {
+  animation: strokeOffset 0.12s linear forwards 1.68s;
+}
+
+#mask-mot {
+  animation: strokeOffset 0.12s linear forwards 1.8s;
+}
+
+#mask-moi {
+  animation: strokeOffset 0.12s linear forwards 1.92s;
+}
+
+#mask-moo2 {
+  animation: strokeOffset 0.12s linear forwards 2.04s;
+}
+
+#mask-mon {
+  animation: strokeOffset 0.12s linear forwards 2.16s;
+}
+
+#mask-mos {
+  animation: strokeOffset 0.12s linear forwards 2.28s;
+}
+
+#mask-mcc {
+  animation: strokeOffset 0.12s linear forwards 2.4s;
+}
+
+#mask-mco {
+  animation: strokeOffset 0.12s linear forwards 2.52s;
+}
+
+#mask-mcn {
+  animation: strokeOffset 0.12s linear forwards 2.64s;
+}
+
+#mask-mcs {
+  animation: strokeOffset 0.12s linear forwards 2.76s;
+}
+
+#mask-mcu {
+  animation: strokeOffset 0.12s linear forwards 2.88s;
+}
+
+#mask-mcl {
+  animation: strokeOffset 0.12s linear forwards 3s;
+}
+
+#mask-mct {
+  animation: strokeOffset 0.12s linear forwards 3.12s;
+}
+
+#mask-mci {
+  animation: strokeOffset 0.12s linear forwards 3.24s;
+}
+
+#mask-mcn2 {
+  animation: strokeOffset 0.12s linear forwards 3.36s;
+}
+
+#mask-mcg {
+  animation: strokeOffset 0.12s linear forwards 3.48s;
+}
+
+#mask-mee {
+  animation: strokeOffset 0.12s linear forwards 3.6s;
+}
+
+#mask-mex {
+  animation: strokeOffset 0.12s linear forwards 3.72s;
+}
+
+#mask-mep {
+  animation: strokeOffset 0.12s linear forwards 3.84s;
+}
+
+#mask-mee2 {
+  animation: strokeOffset 0.12s linear forwards 3.96s;
+}
+
+#mask-mer {
+  animation: strokeOffset 0.12s linear forwards 4.08s;
+}
+
+#mask-met {
+  animation: strokeOffset 0.12s linear forwards 4.2s;
+}
+
+#mask-mes {
+  animation: strokeOffset 0.12s linear forwards 4.32s;
 }
 
 /*# sourceMappingURL=destination.css.map */

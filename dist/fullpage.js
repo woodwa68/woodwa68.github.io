@@ -104,6 +104,8 @@
         var $backs = $('.backs')
         var $sections = $('.section')
         var $menu = $('#menuWrapper')[0]
+      
+  
         //only once my friend!
         if(hasClass($html, ENABLED)){ displayWarnings(); return; }
 
@@ -226,8 +228,13 @@
         };
         var scrollBarHandler;
 
-        var translateBackString = 'translate3d(0px, '+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight)+'px, 0px)';
-        var translateBackPositiveString = 'translate3d(0px, -'+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight)+'px, 0px)';
+        $menu.clientHeight2 = $menu .getBoundingClientRect().height ;
+        css($menu,{'height':$menu.clientHeight2+1+'px'});
+        css($('#menuWrapper2')[0],{'height':$menu.clientHeight2+'px '});
+        var translateBackString = 'translate3d(0px, '+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight2)+'px, 0px)';
+        var translateBackPositiveString = 'translate3d(0px, -'+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight2)+'px, 0px)';
+
+        
 
         // taken from https://github.com/udacity/ud891/blob/gh-pages/lesson2-focus/07-modals-and-keyboard-traps/solution/modal.js
         var focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
@@ -298,7 +305,7 @@
 
             var element = $(SECTION_ACTIVE_SEL)[0];
 
-            if(options.autoScrolling && !options.scrollBar){
+            /* if(options.autoScrolling && !options.scrollBar){ */
                 css($htmlBody, {
                     'overflow': 'hidden',
                     'height': '100%'
@@ -316,7 +323,7 @@
                     //moving the container up
                     silentScroll(element.offsetTop);
                 }
-            }else{
+         /*    }else{
                 css($htmlBody, {
                     'overflow' : 'visible',
                     'height' : 'initial'
@@ -336,7 +343,7 @@
                     var scrollSettings = getScrollSettings(element.offsetTop);
                     scrollSettings.element.scrollTo(0, scrollSettings.options);
                 }
-            }
+            } */
         }
 
         /**
@@ -547,7 +554,7 @@
 
                 }
 
-                css(section, {'height': windowsHeight + 'px'});
+               // css(section, {'height': windowsHeight + 'px'});
               
      
 
@@ -704,14 +711,18 @@
             setMouseHijack(true);
             setAutoScrolling(options.autoScrolling, 'internal');
 
-               for(var i=0; i< options.sectionsBackground.length; i++){
+            for(var i=0; i< options.sectionsBackground.length; i++){
                 css($backs[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
-                css($backs[i],{'top':  Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight)+'px'});
-                css($backs[i],{'height':  Math.round(windowsHeight-$menu.clientHeight)+'px'});
+          
                 css($sections[i],{'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
 
                 
             }
+            accountForMenuAndResize()
+
+              
+
+            
 
 
             responsive();
@@ -734,7 +745,39 @@
                 css($backs[$(SECTION_ACTIVE_SEL)[0].dataset.index], {'visibility':'visible'});
             }
 
+       /*      const masks = ['mmr']
+
+            masks.forEach((mask, index, el) => {
+                const id = `#mask-${mask}` // Prepend #mask- to each mask element name
+                let path = document.querySelector(id)
+                const length = path.getTotalLength() // Calculate the length of a path
+                path.style.strokeDasharray = length; // Set the length to stroke-dasharray in the styles
+                path.style.strokeDashoffset = length; // Set the length to stroke-dashoffset in the styles
+                }) */
+
             doubleCheckHeight();
+        }
+
+        function accountForMenuAndResize(){
+
+            $menu.clientHeight2 = Math.ceil( $menu .getBoundingClientRect().height) ;
+            css($menu,{'height':$menu.clientHeight2+1+'px '});
+            css($('#menuWrapper2')[0],{'height':$menu.clientHeight2+'px '});
+        
+            translateBackString = 'translate3d(0px, '+ Math.round(windowsHeight*PARALLAX_OFFSET-1*$menu.clientHeight2)+'px, 0px)';
+            translateBackPositiveString = 'translate3d(0px, -'+ Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight2)+'px, 0px)';
+            for(var i=0; i< $backs.length; i++){
+                if (i==$(SECTION_ACTIVE_SEL)[0].dataset.index)
+                    transformBacks(translateBackPositiveString,false, $backs[i])
+                else
+                    transformBacks(translateBackString,false, $backs[i])
+            }
+            css($backs,{'top':  Math.round(windowsHeight*PARALLAX_OFFSET-2*$menu.clientHeight2)+'px '});
+            css($backs,{'height':  Math.round(windowsHeight-$menu.clientHeight2)+'px '});
+            css($(TABLE_CELL_SEL), {'height': Math.round(windowsHeight-$menu.clientHeight2) + 'px '});
+
+            css($(SECTION_DEFAULT_SEL), {'height': Math.round(windowsHeight-$menu.clientHeight2) + 'px '});
+            silentScroll($(SECTION_ACTIVE_SEL)[0].offsetTop);
         }
 
         function bindEvents(){
@@ -935,7 +978,7 @@
                 'height': '100%',
                 'position': 'relative',
                 
-                /* 'padding-top': $menu.clientHeight +'px' */
+                /* 'padding-top': $menu.clientHeight2 +'px' */
             });
 
             //adding a class to recognize the container internally in the code
@@ -1051,7 +1094,7 @@
             }
             startingSection = $(SECTION_ACTIVE_SEL)[0];
 
-            css(section, {'height': windowsHeight -$menu.clientHeight + 'px'});
+            css(section, {'height': windowsHeight -$menu.clientHeight2 + 'px'});
 
             
 
@@ -1721,7 +1764,7 @@
             //top of the desination will be at the top of the viewport
             var position = elementTop;
             var isScrollingDown =  elementTop > previousDestTop;
-            var sectionBottom = position - windowsHeight + elementHeight + $menu.clientHeight;
+            var sectionBottom = position - windowsHeight + elementHeight + $menu.clientHeight2;
             var bigSectionsDestination = options.bigSectionsDestination;
 
             //is the destination element bigger than the viewport?
@@ -2810,7 +2853,7 @@
             else{
                 adjustToNewViewport();
             }
-            
+            accountForMenuAndResize()
             isResizing = false;
         }
 
@@ -2936,7 +2979,7 @@
         }
 
         function getTableHeight(element){
-            var sectionHeight = windowsHeight -$menu.clientHeight
+            var sectionHeight = windowsHeight -$menu.clientHeight2
 
             if(options.paddingTop || options.paddingBottom){
                 var section = element;
@@ -3874,6 +3917,7 @@
     * Gets the window height. Crossbrowser.
     */
     function getWindowHeight(){
+     
         return 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
     }
 
@@ -4031,6 +4075,8 @@
     }
     async function addClassRecursivelyToChildren(el, className) {
         el = getList(el);
+     
+        if( el[0].classList.contains('noanimate')) return;
 
         for(var i = 0; i<el.length; i++){
             var item = el[i];
