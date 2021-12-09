@@ -4,7 +4,8 @@
   "description": "Create beautiful fullscreen snap scrolling websites",
   "main": "dist/fullpage.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --watch css -o css"
   },
   "repository": {
     "type": "git",
@@ -51,5 +52,8 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "vivus": "^0.4.6"
   }
 }

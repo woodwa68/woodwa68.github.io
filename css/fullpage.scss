@@ -13,20 +13,19 @@
  */
 
 
- @font-face {
+ @font-face { 
      font-family: Casa;
     src: url('./Casablanca\ Noir\ Personal\ Use.ttf');
   }
 
 
  $baseline: 1.0rem;
-
  $minScreen: 20rem;
  $maxScreen: 50rem;
  $minFont: .8rem;
- $maxFont: 2.0rem;
+ $maxFont: 2.5rem;
  
- $h1: 2rem;
+ $h1: 3rem;
  $h2: 1.5rem;
  $h3: 1.25rem;
  $h4: 1rem;
@@ -77,6 +76,9 @@
 
      width: 100%;
  }
+.coolLineWrapper {
+    padding-bottom: 8%
+}
  
  p{	
      line-height: $baseline;
@@ -88,7 +90,7 @@
  h3,
  h4,
  h5{
-     font-weight: 700;
+     font-weight: lighter;
      margin-bottom: $baseline;
  }
  
@@ -211,7 +213,7 @@ html.fp-enabled,
 }
 .fcc{
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
  
    /*  justify-content: space-evenly; */
     align-items: center;
@@ -226,18 +228,31 @@ html.fp-enabled,
 }
 .coolLine.fp-completely{
     margin-top: 0 !important;
-    animation: growLine 1s forwards;
+    animation: growLine .9s forwards;
+    display:block;
+   
+
+   
 }
+
+.coolLine.reverse{
+    animation: shrinkLine .9s forwards;
+    display:block;
+   
+}
+
+
 .coolLine{
     height: 100%;
-    width: 1%;
+    width: 1.5vh;
     /* border: aqua; */
     /* border-width: 5px; */
     /* border-style: solid; */
     background: white;
     padding: 0%;
     border-radius: 0 0 25px 25px;
-
+    display: none;
+    animation: growLine 1s reverse;
 }
 /* .pWrapper{
   margin: 2% 0;
@@ -830,6 +845,15 @@ body{
     }
 }
 
+@keyframes shrinkLine{
+    from{
+        height: 100%;
+    }
+    to{
+        height: 0%;
+    }
+}
+
 @keyframes growLine{
     from{
         height: 0%;
@@ -855,25 +879,179 @@ body{
 
 /* Animation the stroke-dashoffset to a zero length */
 @keyframes strokeOffset {
-    from {
+    0% {
         stroke-dashoffset: 1;
       }
-      to {
+    30%{
+        stroke-dashoffset: 1;
+    }
+    100% {
         stroke-dashoffset: 0;
       }
 }
 
+@keyframes reverseStrokeOffset {
+    0% {
+        stroke-dashoffset: 0;
+      }
+    30%{
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 1;
+      }
+}
+
 path[mask]{
-    stroke: white;
+    stroke: white; 
     fill: #ad6ad6;
 }
-$delay :.12s;
+
 @function getTime($i) {
     
     $result: $i*$delay;
     @return $result;
   }
 
+/* $delay :1s;  
+#mask-topmask {
+    animation: strokeOffset $delay ease-in forwards getTime(0);
+}
+#mask-rightswirl {
+    animation: strokeOffset $delay ease-in forwards getTime(1);
+}
+#mask-leftswirl {
+    animation: strokeOffset $delay ease-in forwards getTime(1);
+}
+#mask-botmask {
+    animation: strokeOffset $delay ease-in forwards getTime(2);
+}*/
+
+#lines{
+    height:100%;
+} 
+   
+ 
+$delay :1s;  
+
+#m1{
+    animation-delay: getTime(0);
+    display: block;
+    animation-duration: .9s;
+
+}
+#m2{
+
+    animation-duration: 2s;
+    display: block;
+}
+#m3{
+
+    animation-duration: 1.5s;
+    display: block;
+}
+#m4{
+
+    animation-duration: 1.8s;
+    display: block;
+}
+#m5{
+
+    animation-duration: 1.9s;
+    display: block;
+}
+
+
+
+$delay :1s;  
+$animation-length: 2s;
+$firstVine: .9s;
+$secondVine:.75s;
+$thirdVine:1s;
+$fourthVine:1.25s;
+$fifthVine:1.5s;
+#m12{
+    animation-duration: $firstVine;
+}
+#m22{
+    animation-duration: $secondVine;
+
+}
+#m32{
+    animation-duration: $thirdVine;
+}
+#m42{
+    animation-duration: $fourthVine;
+}
+#m52{
+    animation-duration: $fifthVine;
+}
+
+#m12.vine.hidden{
+    $result: $animation-length - $firstVine;
+    animation-duration: $result;
+}
+#m22.vine.hidden{
+    $result: $animation-length -  $secondVine;
+    animation-duration: $result;
+
+}
+#m32.vine.hidden{
+    $result: $animation-length - $thirdVine;
+    animation-duration: $result;
+}
+#m42.vine.hidden{
+    $result: $animation-length  -$fourthVine;
+    animation-duration: $result;
+}
+#m52.vine.hidden{
+    $result: $animation-length  - $fifthVine;
+    animation-duration: $result;
+}
+
+svg{
+
+}
+
+.vine{
+    //display: none;
+    animation: strokeOffset $delay cubic-bezier(1, 0.07, 1, 1) ;
+    stroke-dashoffset: 1;
+    stroke-dasharray: 1;
+    fill: none;
+    stroke: #fff;
+    display: none;
+    
+    
+    
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    
+  
+
+}
+
+.vine.show{
+    animation: strokeOffset $delay cubic-bezier(1, 0.07, 1, 1) ;
+    animation-direction: normal;
+   
+    animation-fill-mode: forwards;
+    display: block;
+}
+
+.vine.hidden{
+    animation: reverseStrokeOffset $delay cubic-bezier(1, 0.07, 1, 1) ;
+   
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    display:block;
+    
+   
+}
+
+
+
+$delay :.12s;  
 /* Apply the animation to each mask */
 #mask-mrr {
     animation: strokeOffset $delay linear forwards getTime(0);

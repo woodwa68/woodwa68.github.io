@@ -128,7 +128,7 @@
 
             //scrolling
             css3: true,
-            scrollingSpeed: 900,
+            scrollingSpeed: 700,
             autoScrolling: true,
             fitToSection: true,
             fitToSectionDelay: 1000,
@@ -1337,7 +1337,7 @@
                 if(isCompletelyInViewPort(scrollDirection)){
                     if(!hasClass($(SECTION_ACTIVE_SEL)[0], COMPLETELY)){
                         addClass($(SECTION_ACTIVE_SEL)[0], COMPLETELY);
-                        removeClass(siblings($(SECTION_ACTIVE_SEL)[0]), COMPLETELY);
+                        
                     }
                 }
 
@@ -1981,6 +1981,39 @@
         * Performs the vertical movement (by CSS3 or by jQuery)
         */
         function performMovement(v){
+            
+
+            for(var i=0; i<$('.vine').length; i++ ){
+                var vine= $('.vine')[i];
+
+                console.log(vine.parentElement.parentElement.parentElement.parentElement.parentElement)
+                console.log(v)
+                console.log(vine)
+                if(v.element !== vine.parentElement.parentElement.parentElement.parentElement.parentElement){
+                
+                    addClass(vine,'hidden')
+                    removeClass(vine,'show')
+                }
+                else{
+                    removeClass(vine,'hidden')
+                    addClass(vine,'show')
+                    console.log(vine)
+                    console.log(3)
+                }
+
+
+            }
+            
+
+
+    
+            
+            
+            
+            
+            
+
+          
             var isFastSpeed = options.scrollingSpeed < 700;
             var transitionLapse = isFastSpeed ? 700 : options.scrollingSpeed; 
 
@@ -2165,11 +2198,14 @@
                 setTimeout(addClass(child, COMPLETELY),1000)
             }
 
- */     
-            addClassRecursivelyToChildren(section.children[0], COMPLETELY)
+ */         
+            
+            
+            addClassRecursivelyToChildren(section.children[0], COMPLETELY);
+            
            
            // addClass(v.element, COMPLETELY);
-            removeClass(siblings(v.element), COMPLETELY);
+           // removeClass(siblings(v.element), COMPLETELY);
             lazyLoadOthers();
 
             canScroll = true;
@@ -4075,8 +4111,9 @@
     }
     async function addClassRecursivelyToChildren(el, className) {
         el = getList(el);
-     
-        if( el[0].classList.contains('noanimate')) return;
+        
+        if(el[0].classList.contains('noanimate') ) return;
+        
 
         for(var i = 0; i<el.length; i++){
             var item = el[i];
@@ -4092,8 +4129,11 @@
                 return timeout(250, item);
             }
             else if(item.children.length !== 0){
+                
                 for(var j = 0; j<item.children.length; j++){
                   await addClassRecursivelyToChildren(item.children[j], COMPLETELY)
+                  item.classList.add('noanimate');
+                  
                 }
                 
             }
