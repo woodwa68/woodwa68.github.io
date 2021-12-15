@@ -77,7 +77,12 @@
      width: 100%;
  }
 .coolLineWrapper {
-    padding-bottom: 8%
+    padding-bottom: 8%;
+    height: 20% !important;
+}
+
+.slideText{
+    height: 70% !important;
 }
  
  p{	
@@ -396,8 +401,8 @@ hr{
 #fp-nav ul li,
 .fp-slidesNav ul li {
     display: block;
-    width: 14px;
-    height: 13px;
+    width: 1.0vh;
+    height: 3.0vh;
     margin: 7px;
     position:relative;
 }
@@ -418,34 +423,34 @@ hr{
 .fp-slidesNav ul li a.active span,
 #fp-nav ul li:hover a.active span,
 .fp-slidesNav ul li:hover a.active span{
-    height: 12px;
-    width: 12px;
-    margin: -6px 0 0 -6px;
-    border-radius: 100%;
+    height: 2vh;
+    width:  2vh;
+    margin: -1vh 0 0 -1vh;
+    border-radius: 101%;
  }
 #fp-nav ul li a span,
 .fp-slidesNav ul li a span {
     border-radius: 50%;
     position: absolute;
     z-index: 1;
-    height: 4px;
-    width: 4px;
+    height: 1.0vh;
+    width:  1.0vh;
     border: 0;
-    background: #ad6ad6;
+    background: #ffffff;
     left: 50%;
     top: 50%;
-    margin: -2px 0 0 -2px;
+    margin: -.5vh 0 0 -.5vh;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     -o-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
-    box-shadow: 0 0 4px 2px #fff;
+    //box-shadow: 0 0 4px 2px #fff;
 }
 #fp-nav ul li:hover a span,
 .fp-slidesNav ul li:hover a span{
-    width: 10px;
-    height: 10px;
-    margin: -5px 0px 0px -5px;
+    height: 1.5vh;
+    width:  1.5vh;
+    margin: -.75vh 0px 0px -.75vh;
 }
 #fp-nav ul li .fp-tooltip {
     position: absolute;
@@ -878,6 +883,19 @@ body{
 }
 
 /* Animation the stroke-dashoffset to a zero length */
+@keyframes vineGrow {
+    0% {
+        stroke-dashoffset: 1;
+      }
+    40%{
+        stroke-dashoffset: 1;
+    }
+    100% {
+        stroke-dashoffset: 0; 
+      }
+}
+
+/* Animation the stroke-dashoffset to a zero length */
 @keyframes strokeOffset {
     0% {
         stroke-dashoffset: 1;
@@ -932,90 +950,76 @@ path[mask]{
 } 
    
  
-$delay :1s;  
 
-#m1{
-    animation-delay: getTime(0);
-    display: block;
-    animation-duration: .9s;
-
-}
-#m2{
-
-    animation-duration: 2s;
-    display: block;
-}
-#m3{
-
-    animation-duration: 1.5s;
-    display: block;
-}
-#m4{
-
-    animation-duration: 1.8s;
-    display: block;
-}
-#m5{
-
-    animation-duration: 1.9s;
-    display: block;
-}
 
 
 
 $delay :1s;  
-$animation-length: 2s;
-$firstVine: .9s;
-$secondVine:.75s;
-$thirdVine:1s;
-$fourthVine:1.25s;
-$fifthVine:1.5s;
-#m12{
+$animation-length: 4s;
+$firstVine: $animation-length*.35;
+$secondVine:$animation-length*.85;
+$thirdVine:$animation-length*.65;
+$fourthVine:$animation-length*.75;
+$fifthVine:$animation-length*.8;
+#m12, #m1,#m13{
     animation-duration: $firstVine;
 }
-#m22{
+#m22, #m2,#m23{
     animation-duration: $secondVine;
 
 }
-#m32{
+#m32,#m3,#m33{
     animation-duration: $thirdVine;
 }
-#m42{
+#m42, #m4,#m43{
     animation-duration: $fourthVine;
 }
-#m52{
-    animation-duration: $fifthVine;
+#m52,#m5,#m53{
+    animation-duration: $animation-length;
 }
 
-#m12.vine.hidden{
+.vine.hidden{
     $result: $animation-length - $firstVine;
     animation-duration: $result;
 }
-#m22.vine.hidden{
+.vine.hidden{
     $result: $animation-length -  $secondVine;
     animation-duration: $result;
 
 }
-#m32.vine.hidden{
+.vine.hidden{
     $result: $animation-length - $thirdVine;
     animation-duration: $result;
 }
-#m42.vine.hidden{
+.vine.hidden{
     $result: $animation-length  -$fourthVine;
     animation-duration: $result;
 }
-#m52.vine.hidden{
+.vine.hidden{
     $result: $animation-length  - $fifthVine;
     animation-duration: $result;
 }
 
-svg{
+svg.vineWrapper{
+    position: absolute;
+    transform: translate(0,-4vh);
+    right: 0;
+    text-align: unset;
+
+}
+svg.vineLeftWrapper{
+    position: absolute;  
+   width: 366.43px;
+   height: 398.73px;
+    transform:  scaleX(-1) translate(0,-4vh);
+    left:0;  
+    overflow: visible;
 
 }
 
 .vine{
     //display: none;
-    animation: strokeOffset $delay cubic-bezier(1, 0.07, 1, 1) ;
+    animation: vineGrow $delay cubic-bezier(1, 0.07, 1, 1) ;
     stroke-dashoffset: 1;
     stroke-dasharray: 1;
     fill: none;
@@ -1032,8 +1036,7 @@ svg{
 }
 
 .vine.show{
-    animation: strokeOffset $delay cubic-bezier(1, 0.07, 1, 1) ;
-    animation-direction: normal;
+    animation: vineGrow $delay cubic-bezier(1, 0.07, 1, 1);    animation-direction: normal;
    
     animation-fill-mode: forwards;
     display: block;
@@ -1051,7 +1054,7 @@ svg{
 
 
 
-$delay :.12s;  
+$delay :.10s;  
 /* Apply the animation to each mask */
 #mask-mrr {
     animation: strokeOffset $delay linear forwards getTime(0);

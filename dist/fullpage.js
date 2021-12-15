@@ -128,12 +128,12 @@
 
             //scrolling
             css3: true,
-            scrollingSpeed: 800,
+            scrollingSpeed: 1000,
             autoScrolling: true,
             fitToSection: true,
             fitToSectionDelay: 1000,
             easing: 'easeInOutCubic',
-            easingcss3: 'ease',
+            easingcss3: 'cubic-bezier(0.44, 0.25, 0.29, 1)',
             loopBottom: false,
             loopTop: false,
             loopHorizontal: true,
@@ -1162,9 +1162,11 @@
         /**
         * Creates a vertical navigation bar.
         */
+       
         function addVerticalNavigation(){
             var navigation = document.createElement('div');
             navigation.setAttribute('id', SECTION_NAV);
+           
 
             var divUl = document.createElement('ul');
             navigation.appendChild(divUl);
@@ -1986,9 +1988,7 @@
             for(var i=0; i<$('.vine').length; i++ ){
                 var vine= $('.vine')[i];
 
-                console.log(vine.parentElement.parentElement.parentElement.parentElement.parentElement)
-                console.log(v)
-                console.log(vine)
+             
                 if(v.element !== vine.parentElement.parentElement.parentElement.parentElement.parentElement){
                 
                     addClass(vine,'hidden')
@@ -1997,8 +1997,7 @@
                 else{
                     removeClass(vine,'hidden')
                     addClass(vine,'show')
-                    console.log(vine)
-                    console.log(3)
+  
                 }
 
 
@@ -2592,7 +2591,37 @@
 
             /*jshint validthis:true */
             var indexBullet = index(closest(this, SECTION_NAV_SEL + ' li'));
-            scrollPage($(SECTION_SEL)[indexBullet]);
+
+            for(var i =0 ; i< $sections.length;i++){
+                css($sections[i], {'background-image': 'url("'+ options.sectionsBackground[i]+'")'}) ;
+            }
+
+            scrollPage($(SECTION_SEL)[indexBullet], 
+             function(){
+                
+          
+                
+                
+                for(var index =0 ; index< $sections.length;index++){
+                    
+                    
+                    if (index==$(SECTION_ACTIVE_SEL)[0].dataset.index){
+                        transformBacks(translateBackPositiveString,false, $backs[index])
+                        css($backs[index], {'visibility': 'visible'});
+                        
+                    }
+                    else{
+                        transformBacks(translateBackString,false, $backs[index]);       
+                        css($backs[index], {'visibility': 'hidden'});
+                    }
+                    css($sections[index], {'background-image': 'none'}) ;
+                    
+
+                }
+             }
+            
+            
+            );
         }
 
         //Scrolls the slider to the given slide destination for the given section
@@ -3122,8 +3151,7 @@
            
             //we need to scroll to the section and then to the slide
             if (getAnchor(section) !== lastScrolledDestiny && !hasClass(section, ACTIVE)){
-                var save =lastScrolledDestiny;
-                var savedBack = $backs[options.anchors.indexOf(save)];
+         
              
               
                 for(var index =0 ; index< $sections.length;index++){
@@ -3140,8 +3168,7 @@
                 
                 scrollPage(section, function(){
                     scrollSlider(slide);
-                    var index = 0;
-                
+              
                     
                     
                     for(var index =0 ; index< $sections.length;index++){
