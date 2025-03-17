@@ -1,0 +1,53 @@
+{
+  "webcredentials": {
+    "apps": [
+      "52GBT8DP76.com.ascap.app.develop",
+      "52GBT8DP76.com.ascap.app.qa",
+      "52GBT8DP76.com.ascap.app.uat",
+      "52GBT8DP76.com.ascap.app",
+      "D94A2KL8DL.com.ascap.app.develop",
+      "D94A2KL8DL.com.ascap.app.uat",
+      "D94A2KL8DL.com.ascap.app.qa",
+      "D94A2KL8DL.com.ascap.app"
+    ]
+  },
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "52GBT8DP76.com.ascap.app.develop",
+          "D94A2KL8DL.com.ascap.app.develop"
+        ],
+        "components": [
+          {
+            "/": "/member-access",
+            "#": "dashboard*"
+          },
+          {
+            "/": "/member-access",
+            "#": "earnings*"
+          },
+          {
+            "/": "/member-access",
+            "#": "works*"
+          },
+          {
+            "/": "/help/*"
+          },
+          {
+            "/": "/press/*"
+          },
+          {
+            "/": "/news-events/calendar"
+          },
+          {
+            "/": "/news-and-events/calendar/event-details*"
+          }
+        ],
+        "defaults": {
+          "caseSensitive": false
+        }
+      }
+    ]
+  }
+}
